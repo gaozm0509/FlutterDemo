@@ -8,7 +8,7 @@
  */
 
 class Api {
-  static String host = 'api.isoyu.com/api';
+  static String host = 'https://api.isoyu.com/api';
 
   // 新闻接口
   static String news = '/News/new_list';

@@ -10,6 +10,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/netWork/netWork.dart';
 import 'package:flutter_demo/netWork/api.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class NewsList extends StatefulWidget {
   @override
@@ -20,18 +21,21 @@ class NewsList extends StatefulWidget {
 
 class _NewsState extends State<NewsList> {
   List _data = [];
+  // ProgressHUD _hud ;
 
   @override
   initState() {
     super.initState();
+    // _hud = ProgressHUD();
     this.request();
   }
 
   // 网络请求
-  request() {
+  request() async {
     Map<String, dynamic> params = {'type': 1, 'page': 20};
-    var result = NetWork().request(Api.news, RequestMethod.GET, params);
-    print('result====' + result);
+    var result = await NetWork().request(Api.news, RequestMethod.GET, params);
+    print(result);
+    Fluttertoast.showToast(msg: result);
   }
 
   itemClick(int index, BuildContext context) {}

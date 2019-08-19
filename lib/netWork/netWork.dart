@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import 'package:dio/dio.dart';
 import 'api.dart';
+import 'package:ovprogresshud/progresshud.dart';
 
 enum RequestMethod {
   GET,
@@ -27,20 +28,24 @@ class NetWork extends Object {
     String url,
     RequestMethod method,
     Map<String, dynamic> params,
-  ) async {
-    String _url = Api.host + url;
-    Response response;
+  ) {
+    // Response response;
     Dio dio = new Dio();
+    dio.options.baseUrl = Api.host;
     switch (method) {
       case RequestMethod.GET:
-        response = await dio.get(_url, queryParameters: params);
-        if (response.statusCode == 200) {
-          return response.data.toString();
-        } else {
-          return response.statusMessage;
-        }
-
-        break;
+        Progresshud.show();
+        return dio.get(url, queryParameters: params).then((response) {
+          Progresshud.dismiss();
+          print(response.data.toString());
+          if (response.statusCode == 200) {
+            return response.data.toString();
+          } else {
+            return response.statusMessage;
+          }
+        }).catchError((error) {
+          print(error);
+        });
       case RequestMethod.POST:
         break;
       case RequestMethod.DELETE:
