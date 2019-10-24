@@ -32,6 +32,11 @@ class NetWork extends Object {
     // Response response;
     Dio dio = new Dio();
     dio.options.baseUrl = Api.host;
+
+    print('\n\n================= request data ===============');
+    print('\nurl:'+ url + '\n' + 'method:' + method.toString() + '\n' + 'params:' + params.toString());
+    print('\n\n================= request end ===============\n\n');
+
     switch (method) {
       case RequestMethod.GET:
         Progresshud.show();
@@ -54,5 +59,11 @@ class NetWork extends Object {
         break;
       default:
     }
+  }
+
+  printResponseData(String data) {
+    print('\n\n================= response data ===============');
+    print(data);
+    print('================= response end ===============\n\n');
   }
 }
