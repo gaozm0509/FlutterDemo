@@ -25,11 +25,23 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _controller = new TabController(length: 3, vsync: this);
+    _controller = new TabController(length: pageList.length, vsync: this);
+  }
+
+
+  static var pageList = [new ControlsList(),new NewsList(),new BluetoothPage(),];
+  static List<String> titles = ['控件','新闻','蓝牙',];
+  static List<Widget> tabs = [];
+  void createTabs() {
+    for (var i = 0; i < pageList.length; i++) {
+      Tab tab = Tab(text: titles[i],icon: new Icon(Icons.control_point,));
+      tabs.add(tab);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    createTabs();
     return MaterialApp(
       // title: '控件列表',
       theme: ThemeData(
@@ -37,41 +49,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
 
       home: Scaffold(
-        // appBar: AppBar(
-        //   title: Text('控件列表'),
-        // ),
         body: new TabBarView(
           controller: _controller,
-          children: [
-            new ControlsList(),
-            new NewsList(),
-            new BluetoothPage(),
-          ],
+          children: pageList,
         ),
         bottomNavigationBar: Material(
           color: Colors.pink,
           child: TabBar(
             controller: _controller,
-            tabs: <Widget>[
-              Tab(
-                text: "控件",
-                icon: new Icon(
-                  Icons.control_point,
-                ),
-              ),
-              Tab(
-                text: "新闻",
-                icon: new Icon(
-                  Icons.new_releases,
-                ),
-              ),
-              Tab(
-                text: "蓝牙",
-                icon: new Icon(
-                  Icons.new_releases,
-                ),
-              )
-            ],
+            tabs: tabs,
           ),
         ),
       ),
