@@ -10,6 +10,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_demo/modular/controls/controlsList.dart';
 import 'package:flutter_demo/modular/news/newsList.dart';
+import '../bluetoothPage/bluetoothPage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -24,7 +25,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   void initState() {
     super.initState();
-    _controller = new TabController(length: 2, vsync: this);
+    _controller = new TabController(length: 3, vsync: this);
   }
 
   @override
@@ -44,6 +45,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           children: [
             new ControlsList(),
             new NewsList(),
+            new BluetoothPage(),
           ],
         ),
         bottomNavigationBar: Material(
@@ -63,6 +65,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   Icons.new_releases,
                 ),
               ),
+              Tab(
+                text: "蓝牙",
+                icon: new Icon(
+                  Icons.new_releases,
+                ),
+              )
             ],
           ),
         ),
